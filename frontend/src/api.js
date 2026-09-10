@@ -1,4 +1,4 @@
-const API_URL = "http://localhost:5000/api/students";
+const API_URL = "https://campushub-backen.onrender.com";
 
 // GET students
 export const getStudents = async () => {
