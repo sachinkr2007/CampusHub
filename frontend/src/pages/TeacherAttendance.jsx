@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { API_BASE_URL } from "../apiConfig";
 
 function TeacherAttendance() {
   const [students, setStudents] = useState([]);
@@ -18,7 +19,7 @@ function TeacherAttendance() {
       setError("");
 
       const response = await fetch(
-        "http://localhost:5000/api/students"
+        `${API_BASE_URL}/students`
       );
 
       if (!response.ok) {
@@ -76,7 +77,7 @@ function TeacherAttendance() {
       }));
 
       const response = await fetch(
-        "http://localhost:5000/api/attendance",
+        `${API_BASE_URL}/attendance`,
         {
           method: "POST",
 

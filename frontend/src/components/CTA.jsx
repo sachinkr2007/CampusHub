@@ -1,4 +1,9 @@
+import { Link } from "react-router-dom";
+
 function CTA() {
+  const user = JSON.parse(localStorage.getItem("student") || "null");
+  const targetLink = user ? (user.role === "teacher" ? "/teacher-dashboard" : "/dashboard") : "/register";
+
   return (
     <section className="cta">
 
@@ -17,9 +22,14 @@ function CTA() {
           and stay connected with your campus.
         </p>
 
-        <button>
-          Get Started →
-        </button>
+        <Link
+          to={targetLink}
+          style={{ textDecoration: "none" }}
+        >
+          <button>
+            {user ? "Go to Dashboard →" : "Get Started →"}
+          </button>
+        </Link>
 
       </div>
 

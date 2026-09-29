@@ -1,6 +1,11 @@
+import { Link } from "react-router-dom";
+
 function Features() {
+  const user = JSON.parse(localStorage.getItem("student") || "null");
+  const isTeacher = user?.role === "teacher";
+
   return (
-    <section className="features">
+    <section className="features" id="features">
 
       <div className="section-heading">
 
@@ -22,7 +27,11 @@ function Features() {
 
       <div className="feature-container">
 
-        <div className="feature-card">
+        <Link
+          to={user ? (isTeacher ? "/teacher-dashboard/attendance" : "/dashboard/attendance") : "/login"}
+          className="feature-card"
+          style={{ textDecoration: "none", color: "inherit" }}
+        >
           <div className="feature-icon">📚</div>
 
           <h3>Academics</h3>
@@ -33,10 +42,14 @@ function Features() {
           </p>
 
           <span>Explore Academics →</span>
-        </div>
+        </Link>
 
 
-        <div className="feature-card">
+        <Link
+          to={user ? (isTeacher ? "/teacher-dashboard" : "/dashboard/placements") : "/login"}
+          className="feature-card"
+          style={{ textDecoration: "none", color: "inherit" }}
+        >
           <div className="feature-icon">💼</div>
 
           <h3>Placements</h3>
@@ -47,10 +60,14 @@ function Features() {
           </p>
 
           <span>Explore Placements →</span>
-        </div>
+        </Link>
 
 
-        <div className="feature-card">
+        <Link
+          to={user ? (isTeacher ? "/teacher-dashboard" : "/dashboard/events") : "/login"}
+          className="feature-card"
+          style={{ textDecoration: "none", color: "inherit" }}
+        >
           <div className="feature-icon">📅</div>
 
           <h3>Events & Clubs</h3>
@@ -61,10 +78,14 @@ function Features() {
           </p>
 
           <span>Explore Events →</span>
-        </div>
+        </Link>
 
 
-        <div className="feature-card">
+        <Link
+          to={user ? (isTeacher ? "/teacher-dashboard/results" : "/dashboard/results") : "/login"}
+          className="feature-card"
+          style={{ textDecoration: "none", color: "inherit" }}
+        >
           <div className="feature-icon">📊</div>
 
           <h3>Analytics</h3>
@@ -75,7 +96,7 @@ function Features() {
           </p>
 
           <span>View Analytics →</span>
-        </div>
+        </Link>
 
       </div>
 

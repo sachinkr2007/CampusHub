@@ -1,6 +1,11 @@
+import { Link } from "react-router-dom";
+
 function Placements() {
+  const user = JSON.parse(localStorage.getItem("student") || "null");
+  const targetLink = user ? (user.role === "teacher" ? "/teacher-dashboard" : "/dashboard/placements") : "/login";
+
   return (
-    <section className="placements">
+    <section className="placements" id="placements">
 
       <div className="section-heading">
 
@@ -49,9 +54,14 @@ function Placements() {
 
           </div>
 
-          <button>
-            View Details
-          </button>
+          <Link
+            to={targetLink}
+            style={{ textDecoration: "none" }}
+          >
+            <button style={{ width: "100%" }}>
+              View Details
+            </button>
+          </Link>
 
         </div>
 
@@ -83,9 +93,14 @@ function Placements() {
 
           </div>
 
-          <button>
-            View Details
-          </button>
+          <Link
+            to={targetLink}
+            style={{ textDecoration: "none" }}
+          >
+            <button style={{ width: "100%" }}>
+              View Details
+            </button>
+          </Link>
 
         </div>
 
@@ -117,9 +132,14 @@ function Placements() {
 
           </div>
 
-          <button>
-            View Details
-          </button>
+          <Link
+            to={targetLink}
+            style={{ textDecoration: "none" }}
+          >
+            <button style={{ width: "100%" }}>
+              View Details
+            </button>
+          </Link>
 
         </div>
 
@@ -127,9 +147,14 @@ function Placements() {
 
 
       <div className="placement-action">
-        <button>
-          View All Opportunities →
-        </button>
+        <Link
+          to={targetLink}
+          style={{ textDecoration: "none" }}
+        >
+          <button>
+            View All Opportunities →
+          </button>
+        </Link>
       </div>
 
     </section>

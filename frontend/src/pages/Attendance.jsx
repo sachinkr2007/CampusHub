@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { API_BASE_URL } from "../apiConfig";
 
 function Attendance() {
   const [user, setUser] = useState(null);
@@ -49,7 +50,7 @@ function Attendance() {
   const fetchStudents = async () => {
     try {
       const response = await fetch(
-        "http://localhost:5000/api/students"
+        `${API_BASE_URL}/students`
       );
 
       if (!response.ok) {
@@ -108,7 +109,7 @@ function Attendance() {
 
       if (loggedInUser.role === "teacher") {
         url =
-          "http://localhost:5000/api/attendance";
+          `${API_BASE_URL}/attendance`;
       }
 
       // ===============================
@@ -123,7 +124,7 @@ function Attendance() {
         }
 
         url =
-          `http://localhost:5000/api/attendance/student/${loggedInUser._id}`;
+          `${API_BASE_URL}/attendance/student/${loggedInUser._id}`;
       }
 
       const response = await fetch(url);
@@ -231,7 +232,7 @@ function Attendance() {
 
       if (editingId) {
         response = await fetch(
-          `http://localhost:5000/api/attendance/${editingId}`,
+          `${API_BASE_URL}/attendance/${editingId}`,
           {
             method: "PUT",
             headers: {
@@ -251,7 +252,7 @@ function Attendance() {
 
       else {
         response = await fetch(
-          "http://localhost:5000/api/attendance",
+          `${API_BASE_URL}/attendance`,
           {
             method: "POST",
             headers: {
@@ -348,7 +349,7 @@ function Attendance() {
 
     try {
       const response = await fetch(
-        `http://localhost:5000/api/attendance/${id}`,
+        `${API_BASE_URL}/attendance/${id}`,
         {
           method: "DELETE",
         }

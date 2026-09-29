@@ -24,23 +24,23 @@ const createStudent = async (req, res) => {
     // ===============================
     // VALIDATION
     // ===============================
-    if (
-      !name ||
-      !email ||
-      !password ||
-      !course ||
-      year === undefined
-    ) {
+    if (!name || !email || !password) {
       return res.status(400).json({
-        message:
-          "Name, email, password, course and year are required",
+        message: "Name, email and password are required",
       });
     }
 
     if (password.length < 6) {
       return res.status(400).json({
-        message:
-          "Password must be at least 6 characters",
+        message: "Password must be at least 6 characters",
+      });
+    }
+
+    const isTeacher = role === "teacher";
+
+    if (!isTeacher && (!course || year === undefined)) {
+      return res.status(400).json({
+        message: "Course and year are required for student registration",
       });
     }
 
@@ -70,7 +70,7 @@ const createStudent = async (req, res) => {
     // ===============================
     let finalRollNo = undefined;
 
-    if (role !== "teacher") {
+    if (!isTeacher) {
       if (rollNo && rollNo.trim()) {
         finalRollNo = rollNo.trim();
       } else {
@@ -85,13 +85,10 @@ const createStudent = async (req, res) => {
       name: name.trim(),
       email: email.trim().toLowerCase(),
       password: hashedPassword,
-      course: course.trim(),
-      year,
-      skills: skills || [],
-      role:
-        role === "teacher"
-          ? "teacher"
-          : "student",
+      course: isTeacher ? (course ? course.trim() : "Faculty") : course.trim(),
+      year: isTeacher ? (year !== undefined ? Number(year) : 0) : Number(year),
+      skills: Array.isArray(skills) ? skills : [],
+      role: isTeacher ? "teacher" : "student",
       rollNo: finalRollNo,
     });
 

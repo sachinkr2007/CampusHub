@@ -1,6 +1,11 @@
+import { Link } from "react-router-dom";
+
 function Events() {
+  const user = JSON.parse(localStorage.getItem("student") || "null");
+  const targetLink = user ? (user.role === "teacher" ? "/teacher-dashboard" : "/dashboard/events") : "/login";
+
   return (
-    <section className="events">
+    <section className="events" id="events">
 
       <div className="section-heading">
 
@@ -48,9 +53,14 @@ function Events() {
 
           </div>
 
-          <button>
-            Register
-          </button>
+          <Link
+            to={targetLink}
+            style={{ textDecoration: "none" }}
+          >
+            <button style={{ width: "100%" }}>
+              Register
+            </button>
+          </Link>
 
         </div>
 
@@ -81,9 +91,14 @@ function Events() {
 
           </div>
 
-          <button>
-            Register
-          </button>
+          <Link
+            to={targetLink}
+            style={{ textDecoration: "none" }}
+          >
+            <button style={{ width: "100%" }}>
+              Register
+            </button>
+          </Link>
 
         </div>
 
@@ -114,9 +129,14 @@ function Events() {
 
           </div>
 
-          <button>
-            Register
-          </button>
+          <Link
+            to={targetLink}
+            style={{ textDecoration: "none" }}
+          >
+            <button style={{ width: "100%" }}>
+              Register
+            </button>
+          </Link>
 
         </div>
 

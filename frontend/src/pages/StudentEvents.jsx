@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { API_BASE_URL } from "../apiConfig";
 
 function StudentEvents() {
   const [events, setEvents] = useState([]);
@@ -31,7 +32,7 @@ function StudentEvents() {
       setError("");
 
       const response = await fetch(
-        "http://localhost:5000/api/events"
+        `${API_BASE_URL}/events`
       );
 
       if (!response.ok) {
@@ -200,7 +201,7 @@ function StudentEvents() {
 
       const response =
         await fetch(
-          "http://localhost:5000/api/event-registrations",
+          `${API_BASE_URL}/event-registrations`,
           {
             method: "POST",
 

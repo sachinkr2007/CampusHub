@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { API_BASE_URL } from "../apiConfig";
 
 function TeacherResults() {
   const [students, setStudents] = useState([]);
@@ -24,7 +25,7 @@ function TeacherResults() {
   const fetchStudents = async () => {
     try {
       const response = await fetch(
-        "http://localhost:5000/api/students"
+        `${API_BASE_URL}/students`
       );
 
       if (!response.ok) {
@@ -59,7 +60,7 @@ function TeacherResults() {
       }
 
       const response = await fetch(
-        `http://localhost:5000/api/results/student/${studentId}`
+        `${API_BASE_URL}/results/student/${studentId}`
       );
 
       if (!response.ok) {
@@ -144,7 +145,7 @@ function TeacherResults() {
       setLoading(true);
 
       const response = await fetch(
-        "http://localhost:5000/api/results",
+        `${API_BASE_URL}/results`,
         {
           method: "POST",
           headers: {
@@ -214,7 +215,7 @@ function TeacherResults() {
       setMessage("");
 
       const response = await fetch(
-        `http://localhost:5000/api/results/${resultId}`,
+        `${API_BASE_URL}/results/${resultId}`,
         {
           method: "DELETE",
         }

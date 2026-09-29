@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import { API_BASE_URL } from "../apiConfig";
 
 function Dashboard() {
   const [student, setStudent] = useState(null);
@@ -75,7 +76,7 @@ function Dashboard() {
       setError("");
 
       const response = await fetch(
-        "http://localhost:5000/api/students"
+        `${API_BASE_URL}/students`
       );
 
       if (!response.ok) {
@@ -163,19 +164,19 @@ function Dashboard() {
         resultsResponse,
       ] = await Promise.all([
         fetch(
-          `http://localhost:5000/api/attendance/student/${studentId}`
+          `${API_BASE_URL}/attendance/student/${studentId}`
         ),
 
         fetch(
-          `http://localhost:5000/api/assignments/student/${studentId}`
+          `${API_BASE_URL}/assignments/student/${studentId}`
         ),
 
         fetch(
-          `http://localhost:5000/api/exams/student/${studentId}`
+          `${API_BASE_URL}/exams/student/${studentId}`
         ),
 
         fetch(
-          `http://localhost:5000/api/results/student/${studentId}`
+          `${API_BASE_URL}/results/student/${studentId}`
         ),
       ]);
 
@@ -400,7 +401,7 @@ function Dashboard() {
       if (editingId) {
         const response =
           await fetch(
-            `http://localhost:5000/api/students/${editingId}`,
+            `${API_BASE_URL}/students/${editingId}`,
             {
               method: "PUT",
 
@@ -434,7 +435,7 @@ function Dashboard() {
       else {
         const response =
           await fetch(
-            "http://localhost:5000/api/students",
+            `${API_BASE_URL}/students`,
             {
               method: "POST",
 
@@ -547,7 +548,7 @@ function Dashboard() {
     try {
       const response =
         await fetch(
-          `http://localhost:5000/api/students/${id}`,
+          `${API_BASE_URL}/students/${id}`,
           {
             method: "DELETE",
           }

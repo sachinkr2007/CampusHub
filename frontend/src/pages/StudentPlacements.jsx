@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { API_BASE_URL } from "../apiConfig";
 
 function StudentPlacements() {
   const [jobs, setJobs] = useState([]);
@@ -32,7 +33,7 @@ function StudentPlacements() {
       setError("");
 
       const response = await fetch(
-        "http://localhost:5000/api/placements"
+        `${API_BASE_URL}/placements`
       );
 
       if (!response.ok) {
@@ -168,7 +169,7 @@ function StudentPlacements() {
 
       const response =
         await fetch(
-          "http://localhost:5000/api/applications",
+          `${API_BASE_URL}/applications`,
           {
             method: "POST",
 

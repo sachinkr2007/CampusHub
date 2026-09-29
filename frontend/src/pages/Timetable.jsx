@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { API_BASE_URL } from "../apiConfig";
 
 function Timetable() {
   const [user, setUser] = useState(null);
@@ -19,7 +20,7 @@ function Timetable() {
     room: "",
   });
 
-  const API = "http://localhost:5000/api";
+  const API = API_BASE_URL;
 
   // ===============================
   // GET LOGGED-IN USER

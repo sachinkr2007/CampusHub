@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { API_BASE_URL } from "../apiConfig";
 
 function Results() {
   const [results, setResults] = useState([]);
@@ -35,7 +36,7 @@ function Results() {
 
       // Fetch only this student's results
       const response = await fetch(
-        `http://localhost:5000/api/results/student/${student._id}`
+        `${API_BASE_URL}/results/student/${student._id}`
       );
 
       if (!response.ok) {

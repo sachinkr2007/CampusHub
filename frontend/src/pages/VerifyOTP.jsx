@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import { API_BASE_URL } from "../apiConfig";
 
 function VerifyOTP() {
   const navigate = useNavigate();
@@ -34,7 +35,7 @@ function VerifyOTP() {
       setLoading(true);
 
       const response = await fetch(
-        "http://localhost:5000/api/students/verify-otp",
+        `${API_BASE_URL}/students/verify-otp`,
         {
           method: "POST",
 

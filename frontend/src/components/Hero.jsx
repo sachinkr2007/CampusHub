@@ -1,6 +1,11 @@
+import { Link } from "react-router-dom";
+
 function Hero() {
+  const user = JSON.parse(localStorage.getItem("student") || "null");
+  const dashboardLink = user?.role === "teacher" ? "/teacher-dashboard" : "/dashboard";
+
   return (
-    <section className="hero">
+    <section className="hero" id="home">
 
       <div className="hero-content">
 
@@ -25,13 +30,21 @@ function Hero() {
 
           <div className="hero-buttons">
 
-            <button className="primary-btn">
-              Get Started
-            </button>
+            <Link
+              to={user ? dashboardLink : "/register"}
+              className="primary-btn"
+              style={{ textDecoration: "none", textAlign: "center", display: "inline-block" }}
+            >
+              {user ? "Go to Dashboard" : "Get Started"}
+            </Link>
 
-            <button className="secondary-btn">
+            <a
+              href="#features"
+              className="secondary-btn"
+              style={{ textDecoration: "none", textAlign: "center", display: "inline-block" }}
+            >
               Explore Features
-            </button>
+            </a>
 
           </div>
 

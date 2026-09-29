@@ -1,14 +1,14 @@
-const API_URL = "https://campushub-backen.onrender.com";
+import { API_BASE_URL } from "./apiConfig";
 
 // GET students
 export const getStudents = async () => {
-  const response = await fetch(API_URL);
+  const response = await fetch(`${API_BASE_URL}/students`);
   return response.json();
 };
 
 // POST student
 export const addStudent = async (student) => {
-  const response = await fetch(API_URL, {
+  const response = await fetch(`${API_BASE_URL}/students`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json"
@@ -21,7 +21,7 @@ export const addStudent = async (student) => {
 
 // PUT student
 export const updateStudent = async (id, student) => {
-  const response = await fetch(`${API_URL}/${id}`, {
+  const response = await fetch(`${API_BASE_URL}/students/${id}`, {
     method: "PUT",
     headers: {
       "Content-Type": "application/json"
@@ -34,7 +34,7 @@ export const updateStudent = async (id, student) => {
 
 // DELETE student
 export const deleteStudent = async (id) => {
-  const response = await fetch(`${API_URL}/${id}`, {
+  const response = await fetch(`${API_BASE_URL}/students/${id}`, {
     method: "DELETE"
   });
 

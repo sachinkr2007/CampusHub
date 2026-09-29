@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { API_BASE_URL } from "../apiConfig";
 
 function Assignment() {
   const [user, setUser] = useState(null);
@@ -58,7 +59,7 @@ function Assignment() {
   const fetchStudents = async () => {
     try {
       const response = await fetch(
-        "http://localhost:5000/api/students"
+        `${API_BASE_URL}/students`
       );
 
       if (!response.ok) {
@@ -133,7 +134,7 @@ function Assignment() {
         "teacher"
       ) {
         url =
-          "http://localhost:5000/api/assignments";
+          `${API_BASE_URL}/assignments`;
       }
 
       // =========================
@@ -151,7 +152,7 @@ function Assignment() {
         }
 
         url =
-          `http://localhost:5000/api/assignments/student/${loggedInUser._id}`;
+          `${API_BASE_URL}/assignments/student/${loggedInUser._id}`;
       }
 
       const response =
@@ -306,7 +307,7 @@ function Assignment() {
       if (editingId) {
         response =
           await fetch(
-            `http://localhost:5000/api/assignments/${editingId}`,
+            `${API_BASE_URL}/assignments/${editingId}`,
             {
               method: "PUT",
               headers: {
@@ -328,7 +329,7 @@ function Assignment() {
       else {
         response =
           await fetch(
-            "http://localhost:5000/api/assignments",
+            `${API_BASE_URL}/assignments`,
             {
               method: "POST",
               headers: {
@@ -438,7 +439,7 @@ function Assignment() {
     try {
       const response =
         await fetch(
-          `http://localhost:5000/api/assignments/${id}`,
+          `${API_BASE_URL}/assignments/${id}`,
           {
             method: "DELETE",
           }
