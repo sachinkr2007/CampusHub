@@ -5107,112 +5107,775 @@
 }
 
 /* =====================================================
-   CAMPUSHUB GLOBAL SETTINGS
+   CAMPUSHUB GLOBAL SETTINGS & THEME ENGINE
 ===================================================== */
-
-/* DARK MODE */
-
-html.dark-mode,
-body.dark-mode {
-  background: #0f172a;
-  color: #e2e8f0;
-}
-
-html.dark-mode .dashboard-layout,
-body.dark-mode .dashboard-layout {
-  background: #0f172a;
-}
-
-html.dark-mode .settings-page {
-  color: #e2e8f0;
-}
-
-html.dark-mode .settings-section {
-  background: #1e293b;
-  border-color: #334155;
-  box-shadow: none;
-}
-
-html.dark-mode .settings-section-title {
-  background: #1e293b;
-  border-color: #334155;
-}
-
-html.dark-mode .settings-section-title h2,
-html.dark-mode .setting-row h3,
-html.dark-mode .profile-details h3 {
-  color: #f8fafc;
-}
-
-html.dark-mode .settings-section-title p,
-html.dark-mode .setting-row p,
-html.dark-mode .profile-details p,
-html.dark-mode .profile-details span {
-  color: #94a3b8;
-}
-
-html.dark-mode .setting-row {
-  border-color: #334155;
-}
-
-html.dark-mode .setting-row:hover {
-  background: #263449;
-}
-
-html.dark-mode .setting-row select {
-  background: #0f172a;
-  color: #e2e8f0;
-  border-color: #475569;
-}
-
-html.dark-mode .reset-settings-btn {
-  background: #1e293b;
-  color: #e2e8f0;
-  border-color: #475569;
-}
-
-html.dark-mode .profile-settings-card {
-  background: #1e293b;
-}
-
 
 /* =====================================================
-   FONT SIZE
+   1. FONT SIZE SCALING
 ===================================================== */
 
-html[data-font-size="small"] {
+html[data-font-size="small"],
+body[data-font-size="small"] {
   font-size: 14px;
 }
 
-html[data-font-size="medium"] {
+html[data-font-size="small"] h1 {
+  font-size: 24px !important;
+}
+
+html[data-font-size="small"] h2 {
+  font-size: 20px !important;
+}
+
+html[data-font-size="small"] h3 {
+  font-size: 16px !important;
+}
+
+html[data-font-size="small"] p,
+html[data-font-size="small"] span,
+html[data-font-size="small"] a,
+html[data-font-size="small"] label,
+html[data-font-size="small"] input,
+html[data-font-size="small"] select,
+html[data-font-size="small"] button,
+html[data-font-size="small"] td,
+html[data-font-size="small"] th {
+  font-size: 13px !important;
+}
+
+html[data-font-size="medium"],
+body[data-font-size="medium"] {
   font-size: 16px;
 }
 
-html[data-font-size="large"] {
+html[data-font-size="large"],
+body[data-font-size="large"] {
   font-size: 18px;
+}
+
+html[data-font-size="large"] h1 {
+  font-size: 34px !important;
+}
+
+html[data-font-size="large"] h2 {
+  font-size: 26px !important;
+}
+
+html[data-font-size="large"] h3 {
+  font-size: 20px !important;
+}
+
+html[data-font-size="large"] p,
+html[data-font-size="large"] span,
+html[data-font-size="large"] a,
+html[data-font-size="large"] label,
+html[data-font-size="large"] input,
+html[data-font-size="large"] select,
+html[data-font-size="large"] button,
+html[data-font-size="large"] td,
+html[data-font-size="large"] th {
+  font-size: 17px !important;
 }
 
 
 /* =====================================================
-   REDUCE ANIMATIONS
+   2. REDUCE ANIMATIONS
 ===================================================== */
 
+html.reduce-animations,
 html.reduce-animations *,
 html.reduce-animations *::before,
 html.reduce-animations *::after {
-  animation-duration: 0.01ms !important;
+  animation-duration: 0.001ms !important;
   animation-iteration-count: 1 !important;
-  transition-duration: 0.01ms !important;
+  transition-duration: 0.001ms !important;
   scroll-behavior: auto !important;
 }
 
 
 /* =====================================================
-   HIGH CONTRAST
+   3. HIGH CONTRAST MODE
 ===================================================== */
 
-html.high-contrast {
-  filter: contrast(1.15);
+html.high-contrast,
+body.high-contrast {
+  filter: contrast(1.25);
+}
+
+html.high-contrast .dashboard-stat,
+html.high-contrast .attendance-card,
+html.high-contrast .timetable-card,
+html.high-contrast .assignment-card,
+html.high-contrast .placement-card,
+html.high-contrast .event-card,
+html.high-contrast .settings-section,
+html.high-contrast .profile-settings-card,
+html.high-contrast .student-card {
+  border: 2px solid #000000 !important;
+}
+
+html.dark-mode.high-contrast .dashboard-stat,
+html.dark-mode.high-contrast .attendance-card,
+html.dark-mode.high-contrast .timetable-card,
+html.dark-mode.high-contrast .assignment-card,
+html.dark-mode.high-contrast .placement-card,
+html.dark-mode.high-contrast .event-card,
+html.dark-mode.high-contrast .settings-section,
+html.dark-mode.high-contrast .profile-settings-card,
+html.dark-mode.high-contrast .student-card {
+  border: 2px solid #60a5fa !important;
+}
+
+
+/* =====================================================
+   4. COMPREHENSIVE DARK MODE
+===================================================== */
+
+html.dark-mode,
+body.dark-mode {
+  background: #0b0f19 !important;
+  color: #e2e8f0 !important;
+}
+
+/* PAGES & MAIN CONTAINERS */
+html.dark-mode .dashboard-page,
+html.dark-mode .module-page {
+  background: #0b0f19 !important;
+  color: #e2e8f0 !important;
+}
+
+html.dark-mode .dashboard-main {
+  background: #0b0f19 !important;
+}
+
+html.dark-mode .dashboard-topbar {
+  background: #111827 !important;
+  border-bottom: 1px solid #1f2937 !important;
+}
+
+html.dark-mode .dashboard-topbar h2 {
+  color: #f9fafb !important;
+}
+
+html.dark-mode .dashboard-topbar p {
+  color: #9ca3af !important;
+}
+
+/* SIDEBAR */
+html.dark-mode .sidebar {
+  background: #090d16 !important;
+  border-right: 1px solid #1f2937 !important;
+}
+
+html.dark-mode .sidebar-logo {
+  color: #f9fafb !important;
+}
+
+html.dark-mode .sidebar-nav a,
+html.dark-mode .sidebar-bottom a {
+  color: #9ca3af !important;
+}
+
+html.dark-mode .sidebar-nav a:hover,
+html.dark-mode .sidebar-bottom a:hover {
+  background: #1f2937 !important;
+  color: #ffffff !important;
+}
+
+html.dark-mode .sidebar-nav a.active,
+html.dark-mode .sidebar-bottom a.active {
+  background: #2563eb !important;
+  color: #ffffff !important;
+}
+
+/* CARDS & CONTAINERS */
+html.dark-mode .dashboard-stat,
+html.dark-mode .progress-section,
+html.dark-mode .overall-attendance,
+html.dark-mode .attendance-card,
+html.dark-mode .attendance-summary,
+html.dark-mode .timetable-card,
+html.dark-mode .assignment-card,
+html.dark-mode .placement-card,
+html.dark-mode .event-card,
+html.dark-mode .settings-section,
+html.dark-mode .profile-settings-card,
+html.dark-mode .student-card,
+html.dark-mode .students-section,
+html.dark-mode .results-summary,
+html.dark-mode .filter-box,
+html.dark-mode .form-card,
+html.dark-mode .result-card {
+  background: #111827 !important;
+  border-color: #1f2937 !important;
+  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.45) !important;
+}
+
+html.dark-mode .settings-section-title {
+  border-bottom: 1px solid #1f2937 !important;
+}
+
+html.dark-mode .settings-section-title h2,
+html.dark-mode .module-header h1,
+html.dark-mode .welcome-section h1,
+html.dark-mode .settings-header h1,
+html.dark-mode .attendance-summary h2,
+html.dark-mode .attendance-card h3,
+html.dark-mode .assignment-card h3,
+html.dark-mode .profile-details h3,
+html.dark-mode .setting-row h3,
+html.dark-mode .student-card h3 {
+  color: #f9fafb !important;
+}
+
+html.dark-mode .settings-section-title p,
+html.dark-mode .module-header p,
+html.dark-mode .settings-header span,
+html.dark-mode .dashboard-stat span,
+html.dark-mode .attendance-card p,
+html.dark-mode .setting-row p,
+html.dark-mode .profile-details p,
+html.dark-mode .info-label {
+  color: #9ca3af !important;
+}
+
+html.dark-mode .setting-row {
+  border-bottom: 1px solid #1f2937 !important;
+}
+
+html.dark-mode .setting-row:hover {
+  background: #172033 !important;
+}
+
+/* FORM ELEMENTS & INPUTS */
+html.dark-mode input,
+html.dark-mode select,
+html.dark-mode textarea,
+html.dark-mode .setting-row select {
+  background: #090d16 !important;
+  color: #f9fafb !important;
+  border-color: #374151 !important;
+}
+
+html.dark-mode input:focus,
+html.dark-mode select:focus,
+html.dark-mode textarea:focus {
+  border-color: #3b82f6 !important;
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.25) !important;
+}
+
+html.dark-mode .reset-settings-btn {
+  background: #1f2937 !important;
+  color: #f9fafb !important;
+  border-color: #374151 !important;
+}
+
+html.dark-mode .reset-settings-btn:hover {
+  background: #374151 !important;
+}
+
+html.dark-mode .settings-outline-btn {
+  background: #1f2937 !important;
+  color: #f9fafb !important;
+  border-color: #374151 !important;
+}
+
+html.dark-mode .settings-outline-btn:hover {
+  background: #2563eb !important;
+  border-color: #2563eb !important;
+  color: #ffffff !important;
+}
+
+/* PROGRESS BARS */
+html.dark-mode .main-progress,
+html.dark-mode .attendance-bar {
+  background: #1f2937 !important;
+}
+
+/* TABLES */
+html.dark-mode table,
+html.dark-mode .results-table,
+html.dark-mode .table-container table {
+  background: #111827 !important;
+  color: #e2e8f0 !important;
+}
+
+html.dark-mode th,
+html.dark-mode .results-table th,
+html.dark-mode .table-container th {
+  background: #090d16 !important;
+  color: #9ca3af !important;
+  border-color: #1f2937 !important;
+}
+
+html.dark-mode td,
+html.dark-mode .results-table td,
+html.dark-mode .table-container td {
+  border-color: #1f2937 !important;
+  color: #f9fafb !important;
+}
+
+html.dark-mode tr:hover td {
+  background: #172033 !important;
+}
+
+/* MODALS IN DARK MODE */
+html.dark-mode .settings-modal,
+html.dark-mode .assignment-modal {
+  background: #111827 !important;
+  border: 1px solid #374151 !important;
+  color: #f9fafb !important;
+}
+
+html.dark-mode .settings-modal-header,
+html.dark-mode .assignment-modal-header {
+  background: #111827 !important;
+  border-color: #1f2937 !important;
+}
+
+html.dark-mode .settings-modal-header h3,
+html.dark-mode .assignment-modal-header h2 {
+  color: #f9fafb !important;
+}
+
+html.dark-mode .modal-close-icon,
+html.dark-mode .modal-close-btn {
+  color: #9ca3af !important;
+}
+
+html.dark-mode .modal-close-icon:hover,
+html.dark-mode .modal-close-btn:hover {
+  color: #f9fafb !important;
+}
+
+html.dark-mode .settings-form-group label {
+  color: #cbd5e1 !important;
+}
+
+html.dark-mode .modal-detail {
+  border-color: #1f2937 !important;
+}
+
+html.dark-mode .modal-detail span {
+  color: #9ca3af !important;
+}
+
+html.dark-mode .modal-detail strong {
+  color: #f9fafb !important;
+}
+
+html.dark-mode .modal-description h3 {
+  color: #f9fafb !important;
+}
+
+html.dark-mode .modal-description p {
+  color: #9ca3af !important;
+}
+
+html.dark-mode .assignment-modal-footer {
+  background: #090d16 !important;
+  border-color: #1f2937 !important;
+}
+
+html.dark-mode .modal-cancel-btn {
+  border-color: #374151 !important;
+  color: #cbd5e1 !important;
+}
+
+html.dark-mode .modal-cancel-btn:hover {
+  background: #1f2937 !important;
+  color: #ffffff !important;
+}
+
+/* QUICK ACTION LINKS IN DARK MODE */
+html.dark-mode .quick-settings-grid a,
+html.dark-mode .quick-action-link {
+  background: #172033 !important;
+  border-color: #1f2937 !important;
+  color: #f9fafb !important;
+}
+
+html.dark-mode .quick-settings-grid a:hover,
+html.dark-mode .quick-action-link:hover {
+  background: #2563eb !important;
+  border-color: #2563eb !important;
+  color: #ffffff !important;
+}
+
+
+/* =====================================================
+   5. SETTINGS COMPONENTS & MODALS
+===================================================== */
+
+/* FOCUS SHIELD BANNER */
+.focus-shield-banner {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  background: linear-gradient(135deg, rgba(234, 88, 12, 0.12), rgba(249, 115, 22, 0.06));
+  border: 1px solid rgba(249, 115, 22, 0.35);
+  border-radius: 14px;
+  padding: 16px 20px;
+  margin-bottom: 25px;
+  animation: bannerFade 0.3s ease;
+}
+
+.focus-shield-banner span {
+  font-size: 28px;
+}
+
+.focus-shield-banner strong {
+  display: block;
+  font-size: 15px;
+  color: #ea580c;
+  margin-bottom: 2px;
+}
+
+.focus-shield-banner p {
+  margin: 0;
+  font-size: 13px;
+  color: #9a3412;
+}
+
+html.dark-mode .focus-shield-banner p {
+  color: #fdba74;
+}
+
+@keyframes bannerFade {
+  from {
+    opacity: 0;
+    transform: translateY(-8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* SMART TIP BOX */
+.smart-tip-box {
+  margin-top: 15px;
+  padding: 16px 20px;
+  background: linear-gradient(135deg, rgba(59, 130, 246, 0.08), rgba(99, 102, 241, 0.05));
+  border: 1px solid rgba(59, 130, 246, 0.25);
+  border-radius: 12px;
+  animation: bannerFade 0.25s ease;
+}
+
+.smart-tip-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 6px;
+  font-size: 14px;
+  font-weight: 600;
+  color: #2563eb;
+}
+
+.smart-badge {
+  background: #2563eb;
+  color: white;
+  padding: 2px 10px;
+  border-radius: 12px;
+  font-size: 11px;
+}
+
+.smart-tip-box p {
+  margin: 0;
+  font-size: 13px;
+  color: #475569;
+  line-height: 1.5;
+}
+
+html.dark-mode .smart-tip-box p {
+  color: #94a3b8;
+}
+
+/* SKILLS CHIPS */
+.profile-skills-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 10px;
+}
+
+.skill-chip {
+  background: rgba(37, 99, 235, 0.1);
+  color: #2563eb;
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 600;
+  border: 1px solid rgba(37, 99, 235, 0.2);
+}
+
+html.dark-mode .skill-chip {
+  background: rgba(96, 165, 250, 0.15);
+  color: #60a5fa;
+  border-color: rgba(96, 165, 250, 0.3);
+}
+
+/* SETTINGS MODAL */
+.settings-modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(15, 23, 42, 0.65);
+  backdrop-filter: blur(4px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  z-index: 10000;
+  animation: overlayFadeIn 0.2s ease;
+}
+
+.settings-modal {
+  width: 100%;
+  max-width: 500px;
+  background: #ffffff;
+  border-radius: 16px;
+  box-shadow: 0 25px 50px rgba(0, 0, 0, 0.25);
+  overflow: hidden;
+  animation: modalPopIn 0.2s ease;
+}
+
+@keyframes overlayFadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes modalPopIn {
+  from {
+    opacity: 0;
+    transform: scale(0.95) translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+.settings-modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 24px;
+  border-bottom: 1px solid #e2e8f0;
+}
+
+.settings-modal-header h3 {
+  margin: 0;
+  font-size: 18px;
+  font-weight: 700;
+  color: #0f172a;
+}
+
+.modal-close-icon {
+  background: transparent;
+  border: none;
+  font-size: 20px;
+  color: #64748b;
+  cursor: pointer;
+  padding: 4px 8px;
+  border-radius: 6px;
+  line-height: 1;
+}
+
+.modal-close-icon:hover {
+  background: #f1f5f9;
+  color: #0f172a;
+}
+
+.settings-modal-form {
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.settings-form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.settings-form-group label {
+  font-size: 13px;
+  font-weight: 600;
+  color: #334155;
+}
+
+.settings-form-group input,
+.settings-form-group select {
+  width: 100%;
+  height: 42px;
+  padding: 0 14px;
+  border-radius: 8px;
+  border: 1px solid #cbd5e1;
+  font-size: 14px;
+  box-sizing: border-box;
+}
+
+.settings-modal-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+  margin-top: 10px;
+}
+
+.modal-cancel-btn {
+  padding: 10px 18px;
+  border: 1px solid #cbd5e1;
+  background: transparent;
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: 14px;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.modal-cancel-btn:hover {
+  background: #f1f5f9;
+}
+
+.modal-save-btn {
+  padding: 10px 22px;
+  background: #2563eb;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: 14px;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.modal-save-btn:hover {
+  background: #1d4ed8;
+  transform: translateY(-1px);
+}
+
+.modal-error-box {
+  background: rgba(239, 68, 68, 0.1);
+  border: 1px solid rgba(239, 68, 68, 0.3);
+  color: #dc2626;
+  padding: 10px 14px;
+  border-radius: 8px;
+  font-size: 13px;
+  font-weight: 500;
+}
+
+/* SETTINGS TOAST */
+.settings-toast {
+  position: fixed;
+  bottom: 28px;
+  right: 28px;
+  background: #0f172a;
+  color: white;
+  padding: 14px 22px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  box-shadow: 0 14px 35px rgba(0, 0, 0, 0.35);
+  z-index: 10001;
+  animation: toastIn 0.3s ease;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.settings-toast.success {
+  border-left: 5px solid #10b981;
+}
+
+.settings-toast.error {
+  border-left: 5px solid #ef4444;
+}
+
+.settings-toast span {
+  font-size: 18px;
+}
+
+.settings-toast p {
+  margin: 0;
+}
+
+@keyframes toastIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px) scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* QUICK ACTION LINKS */
+.quick-action-link {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 16px;
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: 10px;
+  text-decoration: none;
+  color: #1e293b;
+  font-weight: 600;
+  font-size: 14px;
+  transition: 0.2s;
+}
+
+.quick-action-link:hover {
+  background: #2563eb;
+  color: white;
+  border-color: #2563eb;
+  transform: translateY(-2px);
+}
+
+.quick-action-icon {
+  font-size: 20px;
+}
+
+/* TOGGLE BUTTONS */
+.toggle {
+  width: 48px;
+  height: 26px;
+  border-radius: 30px;
+  background: #cbd5e1;
+  border: none;
+  position: relative;
+  cursor: pointer;
+  transition: background 0.3s ease;
+  padding: 2px;
+  flex-shrink: 0;
+}
+
+.toggle span {
+  display: block;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: white;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+  transition: transform 0.3s ease;
+}
+
+.toggle.active {
+  background: #2563eb;
+}
+
+.toggle.active span {
+  transform: translateX(22px);
+}
+
+html.dark-mode .toggle {
+  background: #374151;
+}
+
+html.dark-mode .toggle.active {
+  background: #2563eb;
 }
 
 /* =====================================

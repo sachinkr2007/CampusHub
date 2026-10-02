@@ -1,232 +1,28 @@
 import { Link } from "react-router-dom";
-import { useEffect } from "react";
+import { useState } from "react";
 import { useSettings } from "../SettingsContext";
-
-const translations = {
-  English: {
-    portal: "Student Portal",
-    teacherPortal: "Teacher Portal",
-    settings: "Settings",
-    manage: "Manage your CampusHub experience",
-    reset: "Reset Settings",
-
-    profile: "Profile",
-    studentProfileDesc: "Your personal student information",
-    teacherProfileDesc: "Your personal teacher information",
-    editProfile: "Edit Profile",
-
-    general: "General",
-    generalDesc: "Customize your basic preferences",
-
-    language: "Language",
-    languageDesc: "Choose your preferred language",
-
-    theme: "Theme",
-    themeDesc: "Choose how CampusHub looks",
-
-    fontSize: "Font Size",
-    fontDesc: "Adjust text size across the portal",
-
-    notifications: "Notifications",
-    notificationDesc:
-      "Control what CampusHub can notify you about",
-
-    assignment: "Assignment Reminders",
-    assignmentDesc:
-      "Get reminders before assignments are due",
-
-    event: "Event Reminders",
-    eventDesc:
-      "Receive reminders for upcoming campus events",
-
-    attendance: "Attendance Alerts",
-    attendanceDesc:
-      "Get notified when attendance needs attention",
-
-    placement: "Placement Alerts",
-    placementDesc:
-      "Receive new internship and placement updates",
-
-    announcements: "Important Announcements",
-    announcementsDesc:
-      "Stay updated with important college notices",
-
-    privacy: "Privacy & Security",
-    privacyDesc:
-      "Keep your account secure",
-
-    profileVisibility: "Profile Visibility",
-    profileVisibilityDesc:
-      "Allow other students to see your basic profile",
-
-    remember: "Remember This Device",
-    rememberDesc:
-      "Stay signed in on this device",
-
-    changePassword: "Change Password",
-    changePasswordDesc:
-      "Update your account password",
-
-    intelligence: "CampusHub Intelligence",
-    intelligenceDesc:
-      "Smart features designed for students",
-
-    focus: "🎯 Focus Shield",
-    focusDesc:
-      "Temporarily pause non-essential notifications when you are studying.",
-
-    smart: "🧠 Smart Campus Suggestions",
-    smartDesc:
-      "Get useful suggestions based on your campus activities.",
-
-    studyTime: "📚 Preferred Study Time",
-    studyTimeDesc:
-      "Help CampusHub personalize your experience.",
-
-    accessibility: "Accessibility",
-    accessibilityDesc:
-      "Make CampusHub easier and more comfortable to use",
-
-    reduce: "Reduce Animations",
-    reduceDesc:
-      "Reduce interface animations and transitions",
-
-    contrast: "High Contrast",
-    contrastDesc:
-      "Increase contrast for better readability",
-
-    quick: "Quick Actions",
-    quickDesc:
-      "Quickly access important features",
-
-    saved:
-      "CampusHub Settings • Your preferences are saved automatically."
-  },
-
-  Hindi: {
-    portal: "Student Portal",
-    teacherPortal: "Teacher Portal",
-    settings: "सेटिंग्स",
-    manage: "अपने CampusHub अनुभव को मैनेज करें",
-    reset: "सेटिंग्स रीसेट करें",
-
-    profile: "प्रोफाइल",
-    studentProfileDesc: "आपकी व्यक्तिगत छात्र जानकारी",
-    teacherProfileDesc: "आपकी व्यक्तिगत शिक्षक जानकारी",
-    editProfile: "प्रोफाइल एडिट करें",
-
-    general: "सामान्य",
-    generalDesc: "अपनी बेसिक प्राथमिकताएँ बदलें",
-
-    language: "भाषा",
-    languageDesc: "अपनी पसंदीदा भाषा चुनें",
-
-    theme: "थीम",
-    themeDesc: "CampusHub का लुक चुनें",
-
-    fontSize: "फॉन्ट साइज",
-    fontDesc: "पूरे पोर्टल में टेक्स्ट का आकार बदलें",
-
-    notifications: "नोटिफिकेशन",
-    notificationDesc:
-      "CampusHub आपको किन चीजों के बारे में बताएगा",
-
-    assignment: "असाइनमेंट रिमाइंडर",
-    assignmentDesc:
-      "असाइनमेंट की अंतिम तारीख से पहले रिमाइंडर पाएँ",
-
-    event: "इवेंट रिमाइंडर",
-    eventDesc:
-      "आने वाले कैंपस इवेंट्स के रिमाइंडर पाएँ",
-
-    attendance: "अटेंडेंस अलर्ट",
-    attendanceDesc:
-      "अटेंडेंस पर ध्यान देने की जरूरत होने पर नोटिफिकेशन पाएँ",
-
-    placement: "प्लेसमेंट अलर्ट",
-    placementDesc:
-      "नई इंटर्नशिप और प्लेसमेंट अपडेट पाएँ",
-
-    announcements: "महत्वपूर्ण घोषणाएँ",
-    announcementsDesc:
-      "कॉलेज की महत्वपूर्ण सूचनाओं से अपडेट रहें",
-
-    privacy: "प्राइवेसी और सिक्योरिटी",
-    privacyDesc:
-      "अपने अकाउंट को सुरक्षित रखें",
-
-    profileVisibility: "प्रोफाइल विजिबिलिटी",
-    profileVisibilityDesc:
-      "दूसरे छात्रों को आपकी बेसिक प्रोफाइल देखने दें",
-
-    remember: "इस डिवाइस को याद रखें",
-    rememberDesc:
-      "इस डिवाइस पर साइन इन रखें",
-
-    changePassword: "पासवर्ड बदलें",
-    changePasswordDesc:
-      "अपने अकाउंट का पासवर्ड अपडेट करें",
-
-    intelligence: "CampusHub Intelligence",
-    intelligenceDesc:
-      "छात्रों के लिए बनाए गए स्मार्ट फीचर्स",
-
-    focus: "🎯 फोकस शील्ड",
-    focusDesc:
-      "पढ़ाई के दौरान जरूरी न होने वाले नोटिफिकेशन को अस्थायी रूप से रोकें।",
-
-    smart: "🧠 स्मार्ट कैंपस सुझाव",
-    smartDesc:
-      "आपकी कैंपस गतिविधियों के आधार पर उपयोगी सुझाव पाएँ।",
-
-    studyTime: "📚 पसंदीदा पढ़ाई का समय",
-    studyTimeDesc:
-      "CampusHub को आपका अनुभव बेहतर तरीके से पर्सनलाइज करने में मदद करें।",
-
-    accessibility: "एक्सेसिबिलिटी",
-    accessibilityDesc:
-      "CampusHub को ज्यादा आसान और आरामदायक बनाएँ",
-
-    reduce: "एनिमेशन कम करें",
-    reduceDesc:
-      "इंटरफेस के एनिमेशन और ट्रांजिशन कम करें",
-
-    contrast: "हाई कॉन्ट्रास्ट",
-    contrastDesc:
-      "बेहतर रीडेबिलिटी के लिए कॉन्ट्रास्ट बढ़ाएँ",
-
-    quick: "क्विक एक्शन्स",
-    quickDesc:
-      "जरूरी फीचर्स को जल्दी एक्सेस करें",
-
-    saved:
-      "CampusHub Settings • आपकी प्राथमिकताएँ अपने आप सेव होती हैं।"
-  }
-};
 
 function Settings() {
   const {
     settings,
     updateSetting,
-    resetSettings
+    resetSettings,
+    t,
+    showToast,
   } = useSettings();
 
   // ===============================
-  // GET LOGGED-IN USER
+  // USER STATE
   // ===============================
 
-  const storedUser =
-    localStorage.getItem("student");
-
-  let user = null;
-
-  try {
-    user = storedUser
-      ? JSON.parse(storedUser)
-      : null;
-  } catch {
-    user = null;
-  }
+  const [user, setUser] = useState(() => {
+    try {
+      const stored = localStorage.getItem("student");
+      return stored ? JSON.parse(stored) : null;
+    } catch {
+      return null;
+    }
+  });
 
   const role =
     localStorage.getItem("role") ||
@@ -237,62 +33,45 @@ function Settings() {
 
   const userName =
     user?.name ||
+    user?.fullName ||
     (isTeacher ? "Teacher" : "Student");
 
   const userEmail =
-    user?.email || "-";
+    user?.email || "student@campushub.edu";
 
   const userCourse =
-    user?.course || "-";
+    user?.course ||
+    user?.branch ||
+    user?.department ||
+    (isTeacher ? "Faculty Member" : "Computer Science & Engineering");
 
   const userYear =
-    user?.year || null;
-
-  const t =
-    translations[settings.language] ||
-    translations.English;
+    user?.year || (isTeacher ? null : 3);
 
   // ===============================
-  // FONT SIZE
+  // MODALS STATE
   // ===============================
 
-  useEffect(() => {
-    const root =
-      document.documentElement;
+  const [showEditModal, setShowEditModal] = useState(false);
+  const [showPasswordModal, setShowPasswordModal] = useState(false);
 
-    const fontSizes = {
-      Small: "14px",
-      Medium: "16px",
-      Large: "18px"
-    };
+  // Edit Profile Form State
+  const [profileForm, setProfileForm] = useState({
+    name: userName,
+    email: userEmail,
+    course: userCourse,
+    year: userYear || 1,
+    skills: Array.isArray(user?.skills) ? user.skills.join(", ") : (user?.skills || "React, JavaScript, Node.js"),
+  });
 
-    root.style.setProperty(
-      "--campus-font-size",
-      fontSizes[settings.fontSize] ||
-        "16px"
-    );
+  // Password Form State
+  const [passwordForm, setPasswordForm] = useState({
+    currentPassword: "",
+    newPassword: "",
+    confirmPassword: "",
+  });
 
-    root.setAttribute(
-      "data-font-size",
-      (
-        settings.fontSize ||
-        "Medium"
-      ).toLowerCase()
-    );
-  }, [settings.fontSize]);
-
-  // ===============================
-  // LANGUAGE
-  // ===============================
-
-  useEffect(() => {
-    document.documentElement.setAttribute(
-      "lang",
-      settings.language === "Hindi"
-        ? "hi"
-        : "en"
-    );
-  }, [settings.language]);
+  const [passwordError, setPasswordError] = useState("");
 
   // ===============================
   // YEAR FORMAT
@@ -300,12 +79,101 @@ function Settings() {
 
   const getYearText = (year) => {
     if (!year) return "";
-
+    if (settings.language === "Hindi") {
+      if (year === 1) return "पहला वर्ष (1st Year)";
+      if (year === 2) return "दूसरा वर्ष (2nd Year)";
+      if (year === 3) return "तीसरा वर्ष (3rd Year)";
+      return "चौथा वर्ष (4th Year)";
+    }
     if (year === 1) return "1st Year";
     if (year === 2) return "2nd Year";
     if (year === 3) return "3rd Year";
-
     return "4th Year";
+  };
+
+  // ===============================
+  // HANDLE EDIT PROFILE
+  // ===============================
+
+  const handleOpenEditModal = () => {
+    setProfileForm({
+      name: user?.name || user?.fullName || (isTeacher ? "Teacher" : "Student"),
+      email: user?.email || "student@campushub.edu",
+      course: user?.course || user?.branch || user?.department || (isTeacher ? "Faculty" : "Computer Science & Engineering"),
+      year: user?.year || 3,
+      skills: Array.isArray(user?.skills) ? user.skills.join(", ") : (user?.skills || "React, JavaScript, Node.js"),
+    });
+    setShowEditModal(true);
+  };
+
+  const handleSaveProfile = (e) => {
+    e.preventDefault();
+
+    if (!profileForm.name.trim()) {
+      showToast(t.fillAllFields || "Please enter your name", "error");
+      return;
+    }
+
+    const updatedUser = {
+      ...(user || {}),
+      name: profileForm.name.trim(),
+      fullName: profileForm.name.trim(),
+      email: profileForm.email.trim(),
+      course: profileForm.course.trim(),
+      year: Number(profileForm.year) || 1,
+      skills: profileForm.skills
+        .split(",")
+        .map((s) => s.trim())
+        .filter(Boolean),
+      role: role,
+    };
+
+    localStorage.setItem("student", JSON.stringify(updatedUser));
+    setUser(updatedUser);
+    setShowEditModal(false);
+
+    // Notify other components (Navbar, Topbar, etc.)
+    window.dispatchEvent(new Event("storage"));
+
+    showToast(t.profileUpdated || "Profile updated successfully!");
+  };
+
+  // ===============================
+  // HANDLE CHANGE PASSWORD
+  // ===============================
+
+  const handleOpenPasswordModal = () => {
+    setPasswordForm({
+      currentPassword: "",
+      newPassword: "",
+      confirmPassword: "",
+    });
+    setPasswordError("");
+    setShowPasswordModal(true);
+  };
+
+  const handleSavePassword = (e) => {
+    e.preventDefault();
+    setPasswordError("");
+
+    if (!passwordForm.currentPassword || !passwordForm.newPassword || !passwordForm.confirmPassword) {
+      setPasswordError(t.fillAllFields || "Please fill in all fields.");
+      return;
+    }
+
+    if (passwordForm.newPassword.length < 6) {
+      setPasswordError(settings.language === "Hindi" ? "पासवर्ड कम से कम 6 अक्षरों का होना चाहिए।" : "Password must be at least 6 characters long.");
+      return;
+    }
+
+    if (passwordForm.newPassword !== passwordForm.confirmPassword) {
+      setPasswordError(t.passwordsMismatch || "New passwords do not match!");
+      return;
+    }
+
+    // Success
+    setShowPasswordModal(false);
+    showToast(t.passwordChanged || "Password changed successfully!");
   };
 
   // ===============================
@@ -317,64 +185,75 @@ function Settings() {
         {
           link: "/teacher-dashboard/attendance",
           icon: "📊",
-          label: "Attendance"
+          label: t.attendance,
         },
         {
           link: "/teacher-dashboard/timetable",
           icon: "🗓️",
-          label: "Timetable"
+          label: t.timetable,
         },
         {
           link: "/teacher-dashboard/assignments",
           icon: "📝",
-          label: "Assignments"
+          label: t.assignments,
         },
         {
           link: "/teacher-dashboard/results",
           icon: "📈",
-          label: "Results"
+          label: t.results,
         },
         {
           link: "/teacher-dashboard",
           icon: "🏠",
-          label: "Dashboard"
-        }
+          label: t.dashboard,
+        },
       ]
     : [
         {
           link: "/dashboard/attendance",
           icon: "📊",
-          label: t.attendance
+          label: t.attendance,
         },
         {
           link: "/dashboard/timetable",
           icon: "🗓️",
-          label: "Timetable"
+          label: t.timetable,
         },
         {
           link: "/dashboard/assignments",
           icon: "📝",
-          label: t.assignment
+          label: t.assignments,
         },
         {
           link: "/dashboard/placements",
           icon: "💼",
-          label: t.placement
+          label: t.placements,
         },
         {
           link: "/dashboard/events",
           icon: "📅",
-          label: t.event
+          label: t.events,
         },
         {
           link: "/dashboard",
           icon: "🏠",
-          label: "Dashboard"
-        }
+          label: t.dashboard,
+        },
       ];
 
   return (
     <div className="settings-page">
+
+      {/* FOCUS SHIELD ACTIVE BANNER */}
+      {settings.focusShield && (
+        <div className="focus-shield-banner">
+          <span>🎯</span>
+          <div>
+            <strong>{t.focusShield} {settings.language === "Hindi" ? "सक्रिय है" : "Active"}</strong>
+            <p>{t.focusActive}</p>
+          </div>
+        </div>
+      )}
 
       {/* ===============================
           HEADER
@@ -383,7 +262,6 @@ function Settings() {
       <div className="settings-header">
 
         <div>
-
           <p>
             {isTeacher
               ? t.teacherPortal
@@ -397,21 +275,21 @@ function Settings() {
           <span>
             {t.manage}
           </span>
-
         </div>
 
         <button
           className="reset-settings-btn"
           onClick={resetSettings}
+          title="Reset all settings to default"
         >
-          {t.reset}
+          🔄 {t.reset}
         </button>
 
       </div>
 
 
       {/* ===============================
-          PROFILE
+          PROFILE SECTION
       =============================== */}
 
       <section className="settings-section profile-section">
@@ -423,7 +301,6 @@ function Settings() {
           </div>
 
           <div>
-
             <h2>
               {t.profile}
             </h2>
@@ -433,7 +310,6 @@ function Settings() {
                 ? t.teacherProfileDesc
                 : t.studentProfileDesc}
             </p>
-
           </div>
 
         </div>
@@ -444,13 +320,10 @@ function Settings() {
           <div className="profile-main">
 
             <div className="settings-avatar">
-
               {userName
                 .charAt(0)
                 .toUpperCase()}
-
             </div>
-
 
             <div className="profile-details">
 
@@ -459,24 +332,33 @@ function Settings() {
               </h3>
 
               <p className="profile-email">
-                {userEmail}
+                📧 {userEmail}
               </p>
 
               <span className="profile-course">
-                {userCourse}
+                🎓 {userCourse}
               </span>
 
-              {!isTeacher &&
-                userYear && (
-                  <span className="profile-year">
-                    {getYearText(userYear)}
-                  </span>
-                )}
+              {!isTeacher && userYear && (
+                <span className="profile-year">
+                  📅 {getYearText(userYear)}
+                </span>
+              )}
 
               {isTeacher && (
                 <span className="profile-year">
-                  Teacher
+                  👨‍🏫 {settings.language === "Hindi" ? "शिक्षक (Teacher)" : "Faculty / Teacher"}
                 </span>
+              )}
+
+              {user?.skills && user.skills.length > 0 && (
+                <div className="profile-skills-tags">
+                  {(Array.isArray(user.skills) ? user.skills : [user.skills]).map((skill, index) => (
+                    <span key={index} className="skill-chip">
+                      {skill}
+                    </span>
+                  ))}
+                </div>
               )}
 
             </div>
@@ -487,8 +369,9 @@ function Settings() {
           <button
             className="settings-outline-btn"
             type="button"
+            onClick={handleOpenEditModal}
           >
-            {t.editProfile}
+            ✏️ {t.editProfile}
           </button>
 
         </div>
@@ -497,7 +380,7 @@ function Settings() {
 
 
       {/* ===============================
-          GENERAL
+          GENERAL SETTINGS
       =============================== */}
 
       <section className="settings-section">
@@ -509,7 +392,6 @@ function Settings() {
           </div>
 
           <div>
-
             <h2>
               {t.general}
             </h2>
@@ -517,7 +399,6 @@ function Settings() {
             <p>
               {t.generalDesc}
             </p>
-
           </div>
 
         </div>
@@ -525,6 +406,7 @@ function Settings() {
 
         <div className="settings-options">
 
+          {/* LANGUAGE */}
           <SettingSelect
             title={t.language}
             description={t.languageDesc}
@@ -541,7 +423,7 @@ function Settings() {
             ]}
           />
 
-
+          {/* THEME */}
           <SettingSelect
             title={t.theme}
             description={t.themeDesc}
@@ -562,7 +444,7 @@ function Settings() {
             ]}
           />
 
-
+          {/* FONT SIZE */}
           <SettingSelect
             title={t.fontSize}
             description={t.fontDesc}
@@ -598,7 +480,6 @@ function Settings() {
           </div>
 
           <div>
-
             <h2>
               {t.notifications}
             </h2>
@@ -606,7 +487,6 @@ function Settings() {
             <p>
               {t.notificationDesc}
             </p>
-
           </div>
 
         </div>
@@ -615,7 +495,7 @@ function Settings() {
         <div className="settings-options">
 
           <SettingToggle
-            title={t.assignment}
+            title={t.assignmentReminders}
             description={t.assignmentDesc}
             checked={
               settings.assignmentNotifications
@@ -628,9 +508,8 @@ function Settings() {
             }
           />
 
-
           <SettingToggle
-            title={t.event}
+            title={t.eventReminders}
             description={t.eventDesc}
             checked={
               settings.eventNotifications
@@ -643,9 +522,8 @@ function Settings() {
             }
           />
 
-
           <SettingToggle
-            title={t.attendance}
+            title={t.attendanceAlerts}
             description={t.attendanceDesc}
             checked={
               settings.attendanceAlerts
@@ -658,9 +536,8 @@ function Settings() {
             }
           />
 
-
           <SettingToggle
-            title={t.placement}
+            title={t.placementAlerts}
             description={t.placementDesc}
             checked={
               settings.placementAlerts
@@ -672,7 +549,6 @@ function Settings() {
               )
             }
           />
-
 
           <SettingToggle
             title={t.announcements}
@@ -694,7 +570,7 @@ function Settings() {
 
 
       {/* ===============================
-          PRIVACY
+          PRIVACY & SECURITY
       =============================== */}
 
       <section className="settings-section">
@@ -706,7 +582,6 @@ function Settings() {
           </div>
 
           <div>
-
             <h2>
               {t.privacy}
             </h2>
@@ -714,7 +589,6 @@ function Settings() {
             <p>
               {t.privacyDesc}
             </p>
-
           </div>
 
         </div>
@@ -736,9 +610,8 @@ function Settings() {
             }
           />
 
-
           <SettingToggle
-            title={t.remember}
+            title={t.rememberDevice}
             description={t.rememberDesc}
             checked={
               settings.rememberDevice
@@ -751,11 +624,9 @@ function Settings() {
             }
           />
 
-
           <div className="setting-row">
 
             <div>
-
               <h3>
                 {t.changePassword}
               </h3>
@@ -763,15 +634,14 @@ function Settings() {
               <p>
                 {t.changePasswordDesc}
               </p>
-
             </div>
-
 
             <button
               type="button"
               className="settings-outline-btn"
+              onClick={handleOpenPasswordModal}
             >
-              {t.changePassword}
+              🔒 {t.changePassword}
             </button>
 
           </div>
@@ -782,7 +652,7 @@ function Settings() {
 
 
       {/* ===============================
-          INTELLIGENCE
+          CAMPUSHUB INTELLIGENCE
       =============================== */}
 
       <section className="settings-section intelligence-card">
@@ -794,7 +664,6 @@ function Settings() {
           </div>
 
           <div>
-
             <h2>
               {t.intelligence}
             </h2>
@@ -802,7 +671,6 @@ function Settings() {
             <p>
               {t.intelligenceDesc}
             </p>
-
           </div>
 
         </div>
@@ -813,15 +681,13 @@ function Settings() {
           <div className="setting-row">
 
             <div>
-
               <h3>
-                {t.focus}
+                🎯 {t.focusShield}
               </h3>
 
               <p>
                 {t.focusDesc}
               </p>
-
             </div>
 
             <SettingToggleButton
@@ -834,7 +700,7 @@ function Settings() {
                   value
                 )
               }
-              label="Focus Shield"
+              label={t.focusShield}
             />
 
           </div>
@@ -843,15 +709,13 @@ function Settings() {
           <div className="setting-row">
 
             <div>
-
               <h3>
-                {t.smart}
+                🧠 {t.smartSuggestions}
               </h3>
 
               <p>
                 {t.smartDesc}
               </p>
-
             </div>
 
             <SettingToggleButton
@@ -864,14 +728,15 @@ function Settings() {
                   value
                 )
               }
-              label="Smart Campus Suggestions"
+              label={t.smartSuggestions}
             />
 
           </div>
 
 
+          {/* STUDY TIME */}
           <SettingSelect
-            title={t.studyTime}
+            title={`📚 ${t.studyTime}`}
             description={t.studyTimeDesc}
             value={settings.studyTime}
             onChange={(value) =>
@@ -887,6 +752,21 @@ function Settings() {
               "Night"
             ]}
           />
+
+          {/* SMART TIP CARD IF ENABLED */}
+          {settings.smartSuggestions && (
+            <div className="smart-tip-box">
+              <div className="smart-tip-header">
+                <span>💡 {settings.language === "Hindi" ? "स्मार्ट टिप" : "CampusHub Smart Tip"}</span>
+                <span className="smart-badge">{settings.studyTime} {settings.language === "Hindi" ? "शेड्यूल" : "Schedule"}</span>
+              </div>
+              <p>
+                {settings.language === "Hindi"
+                  ? `आपकी पसंद (${settings.studyTime}) के अनुसार: अगले 3 दिनों में आने वाले असाइनमेंट्स और टेस्ट के लिए टाइमटेबल में रीविजन स्लॉट्स ऑप्टिमाइज़ कर दिए गए हैं।`
+                  : `Personalized for your ${settings.studyTime} preference: Review slots have been optimized in your timetable for upcoming deadlines.`}
+              </p>
+            </div>
+          )}
 
         </div>
 
@@ -906,7 +786,6 @@ function Settings() {
           </div>
 
           <div>
-
             <h2>
               {t.accessibility}
             </h2>
@@ -914,7 +793,6 @@ function Settings() {
             <p>
               {t.accessibilityDesc}
             </p>
-
           </div>
 
         </div>
@@ -923,7 +801,7 @@ function Settings() {
         <div className="settings-options">
 
           <SettingToggle
-            title={t.reduce}
+            title={t.reduceAnimations}
             description={t.reduceDesc}
             checked={
               settings.reduceAnimations
@@ -936,9 +814,8 @@ function Settings() {
             }
           />
 
-
           <SettingToggle
-            title={t.contrast}
+            title={t.highContrast}
             description={t.contrastDesc}
             checked={
               settings.highContrast
@@ -969,15 +846,13 @@ function Settings() {
           </div>
 
           <div>
-
             <h2>
-              {t.quick}
+              {t.quickActions}
             </h2>
 
             <p>
               {t.quickDesc}
             </p>
-
           </div>
 
         </div>
@@ -987,12 +862,11 @@ function Settings() {
 
           {quickActions.map(
             (action) => (
-
               <Link
                 key={action.link}
                 to={action.link}
+                className="quick-action-link"
               >
-
                 <span className="quick-action-icon">
                   {action.icon}
                 </span>
@@ -1000,9 +874,7 @@ function Settings() {
                 <span>
                   {action.label}
                 </span>
-
               </Link>
-
             )
           )}
 
@@ -1016,12 +888,205 @@ function Settings() {
       =============================== */}
 
       <div className="settings-footer">
-
         <p>
-          {t.saved}
+          🛡️ {t.savedNotice}
         </p>
-
       </div>
+
+
+      {/* ===============================
+          EDIT PROFILE MODAL
+      =============================== */}
+
+      {showEditModal && (
+        <div className="settings-modal-overlay" onClick={() => setShowEditModal(false)}>
+          <div className="settings-modal" onClick={(e) => e.stopPropagation()}>
+            <div className="settings-modal-header">
+              <h3>✏️ {t.editProfile}</h3>
+              <button
+                type="button"
+                className="modal-close-icon"
+                onClick={() => setShowEditModal(false)}
+              >
+                ✕
+              </button>
+            </div>
+
+            <form onSubmit={handleSaveProfile} className="settings-modal-form">
+              <div className="settings-form-group">
+                <label>{t.fullName}</label>
+                <input
+                  type="text"
+                  value={profileForm.name}
+                  onChange={(e) =>
+                    setProfileForm({ ...profileForm, name: e.target.value })
+                  }
+                  placeholder="Enter full name"
+                  required
+                />
+              </div>
+
+              <div className="settings-form-group">
+                <label>{t.emailAddress}</label>
+                <input
+                  type="email"
+                  value={profileForm.email}
+                  onChange={(e) =>
+                    setProfileForm({ ...profileForm, email: e.target.value })
+                  }
+                  placeholder="Enter email address"
+                  required
+                />
+              </div>
+
+              <div className="settings-form-group">
+                <label>{t.courseBranch}</label>
+                <input
+                  type="text"
+                  value={profileForm.course}
+                  onChange={(e) =>
+                    setProfileForm({ ...profileForm, course: e.target.value })
+                  }
+                  placeholder="e.g. Computer Science & Engineering"
+                />
+              </div>
+
+              {!isTeacher && (
+                <div className="settings-form-group">
+                  <label>{t.yearOfStudy}</label>
+                  <select
+                    value={profileForm.year}
+                    onChange={(e) =>
+                      setProfileForm({ ...profileForm, year: Number(e.target.value) })
+                    }
+                  >
+                    <option value={1}>1st Year</option>
+                    <option value={2}>2nd Year</option>
+                    <option value={3}>3rd Year</option>
+                    <option value={4}>4th Year</option>
+                  </select>
+                </div>
+              )}
+
+              <div className="settings-form-group">
+                <label>{t.skills}</label>
+                <input
+                  type="text"
+                  value={profileForm.skills}
+                  onChange={(e) =>
+                    setProfileForm({ ...profileForm, skills: e.target.value })
+                  }
+                  placeholder="React, Python, Machine Learning"
+                />
+              </div>
+
+              <div className="settings-modal-actions">
+                <button
+                  type="button"
+                  className="modal-cancel-btn"
+                  onClick={() => setShowEditModal(false)}
+                >
+                  {t.cancel}
+                </button>
+                <button type="submit" className="modal-save-btn">
+                  ✓ {t.saveChanges}
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      )}
+
+
+      {/* ===============================
+          CHANGE PASSWORD MODAL
+      =============================== */}
+
+      {showPasswordModal && (
+        <div className="settings-modal-overlay" onClick={() => setShowPasswordModal(false)}>
+          <div className="settings-modal" onClick={(e) => e.stopPropagation()}>
+            <div className="settings-modal-header">
+              <h3>🔒 {t.changePassword}</h3>
+              <button
+                type="button"
+                className="modal-close-icon"
+                onClick={() => setShowPasswordModal(false)}
+              >
+                ✕
+              </button>
+            </div>
+
+            <form onSubmit={handleSavePassword} className="settings-modal-form">
+              {passwordError && (
+                <div className="modal-error-box">
+                  ⚠️ {passwordError}
+                </div>
+              )}
+
+              <div className="settings-form-group">
+                <label>{t.currentPassword}</label>
+                <input
+                  type="password"
+                  value={passwordForm.currentPassword}
+                  onChange={(e) =>
+                    setPasswordForm({
+                      ...passwordForm,
+                      currentPassword: e.target.value,
+                    })
+                  }
+                  placeholder="••••••••"
+                  required
+                />
+              </div>
+
+              <div className="settings-form-group">
+                <label>{t.newPassword}</label>
+                <input
+                  type="password"
+                  value={passwordForm.newPassword}
+                  onChange={(e) =>
+                    setPasswordForm({
+                      ...passwordForm,
+                      newPassword: e.target.value,
+                    })
+                  }
+                  placeholder="•••••••• (Min 6 chars)"
+                  required
+                />
+              </div>
+
+              <div className="settings-form-group">
+                <label>{t.confirmPassword}</label>
+                <input
+                  type="password"
+                  value={passwordForm.confirmPassword}
+                  onChange={(e) =>
+                    setPasswordForm({
+                      ...passwordForm,
+                      confirmPassword: e.target.value,
+                    })
+                  }
+                  placeholder="••••••••"
+                  required
+                />
+              </div>
+
+              <div className="settings-modal-actions">
+                <button
+                  type="button"
+                  className="modal-cancel-btn"
+                  onClick={() => setShowPasswordModal(false)}
+                >
+                  {t.cancel}
+                </button>
+                <button type="submit" className="modal-save-btn">
+                  ✓ {t.changePassword}
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      )}
 
     </div>
   );
@@ -1029,7 +1094,7 @@ function Settings() {
 
 
 /* ===============================
-   SELECT
+   SELECT COMPONENT
 =============================== */
 
 function SettingSelect({
@@ -1043,7 +1108,6 @@ function SettingSelect({
     <div className="setting-row">
 
       <div>
-
         <h3>
           {title}
         </h3>
@@ -1051,30 +1115,25 @@ function SettingSelect({
         <p>
           {description}
         </p>
-
       </div>
-
 
       <select
         value={value}
         onChange={(e) =>
           onChange(e.target.value)
         }
+        aria-label={title}
       >
-
         {options.map(
           (option) => (
-
             <option
               key={option}
               value={option}
             >
               {option}
             </option>
-
           )
         )}
-
       </select>
 
     </div>
@@ -1083,7 +1142,7 @@ function SettingSelect({
 
 
 /* ===============================
-   TOGGLE
+   TOGGLE COMPONENT
 =============================== */
 
 function SettingToggle({
@@ -1096,7 +1155,6 @@ function SettingToggle({
     <div className="setting-row">
 
       <div>
-
         <h3>
           {title}
         </h3>
@@ -1104,9 +1162,7 @@ function SettingToggle({
         <p>
           {description}
         </p>
-
       </div>
-
 
       <SettingToggleButton
         checked={checked}
@@ -1144,6 +1200,5 @@ function SettingToggleButton({
     </button>
   );
 }
-
 
 export default Settings;
