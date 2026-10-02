@@ -59,12 +59,12 @@ function Hero() {
 
             <div className="dashboard-header">
               <div>
-                <p>Student Dashboard</p>
+                <p>Campus Portal Preview</p>
                 <h3>Good Morning 👋</h3>
               </div>
 
               <div className="profile-circle">
-                S
+                🎓
               </div>
             </div>
 

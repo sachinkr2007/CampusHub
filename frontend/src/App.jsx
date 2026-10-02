@@ -3,7 +3,8 @@ import "./App.css";
 import {
   BrowserRouter,
   Routes,
-  Route
+  Route,
+  Navigate
 } from "react-router-dom";
 
 import Home from "./pages/Home";
@@ -35,6 +36,7 @@ import DashboardLayout from "./layouts/DashboardLayout";
 import TeacherDashboardLayout from "./layouts/TeacherDashboardLayout";
 
 import { SettingsProvider } from "./SettingsContext";
+import { ProtectedRoute, PublicRoute } from "./components/ProtectedRoute";
 
 
 function App() {
@@ -46,7 +48,7 @@ function App() {
         <Routes>
 
           {/* ===============================
-              PUBLIC PAGES
+              PUBLIC PAGES (LANDING ROOT)
           =============================== */}
 
           <Route
@@ -56,128 +58,162 @@ function App() {
 
           <Route
             path="/login"
-            element={<Login />}
+            element={
+              <PublicRoute>
+                <Login />
+              </PublicRoute>
+            }
           />
 
           <Route
             path="/register"
-            element={<Register />}
+            element={
+              <PublicRoute>
+                <Register />
+              </PublicRoute>
+            }
           />
 
           {/* FORGOT PASSWORD */}
 
           <Route
             path="/forgot-password"
-            element={<ForgotPassword />}
+            element={
+              <PublicRoute>
+                <ForgotPassword />
+              </PublicRoute>
+            }
           />
 
           {/* VERIFY OTP */}
 
           <Route
             path="/verify-otp"
-            element={<VerifyOTP />}
+            element={
+              <PublicRoute>
+                <VerifyOTP />
+              </PublicRoute>
+            }
           />
 
           {/* RESET PASSWORD */}
 
           <Route
             path="/reset-password"
-            element={<ResetPassword />}
+            element={
+              <PublicRoute>
+                <ResetPassword />
+              </PublicRoute>
+            }
           />
 
 
           {/* ===============================
-              STUDENT DASHBOARD
+              STUDENT DASHBOARD (PROTECTED)
           =============================== */}
 
           <Route
-            path="/dashboard"
-            element={<DashboardLayout />}
+            element={<ProtectedRoute allowedRole="student" />}
           >
-
             <Route
-              index
-              element={<Dashboard />}
-            />
+              path="/dashboard"
+              element={<DashboardLayout />}
+            >
 
-            <Route
-              path="attendance"
-              element={<Attendance />}
-            />
+              <Route
+                index
+                element={<Dashboard />}
+              />
 
-            <Route
-              path="timetable"
-              element={<Timetable />}
-            />
+              <Route
+                path="attendance"
+                element={<Attendance />}
+              />
 
-            <Route
-              path="assignments"
-              element={<Assignments />}
-            />
+              <Route
+                path="timetable"
+                element={<Timetable />}
+              />
 
-            <Route
-              path="placements"
-              element={<StudentPlacements />}
-            />
+              <Route
+                path="assignments"
+                element={<Assignments />}
+              />
 
-            <Route
-              path="events"
-              element={<StudentEvents />}
-            />
+              <Route
+                path="placements"
+                element={<StudentPlacements />}
+              />
 
-            <Route
-              path="results"
-              element={<Results />}
-            />
+              <Route
+                path="events"
+                element={<StudentEvents />}
+              />
 
-            <Route
-              path="settings"
-              element={<Settings />}
-            />
+              <Route
+                path="results"
+                element={<Results />}
+              />
 
+              <Route
+                path="settings"
+                element={<Settings />}
+              />
+
+            </Route>
           </Route>
 
 
           {/* ===============================
-              TEACHER DASHBOARD
+              TEACHER DASHBOARD (PROTECTED)
           =============================== */}
 
           <Route
-            path="/teacher-dashboard"
-            element={<TeacherDashboardLayout />}
+            element={<ProtectedRoute allowedRole="teacher" />}
           >
-
             <Route
-              index
-              element={<TeacherDashboard />}
-            />
+              path="/teacher-dashboard"
+              element={<TeacherDashboardLayout />}
+            >
 
-            <Route
-              path="attendance"
-              element={<TeacherAttendance />}
-            />
+              <Route
+                index
+                element={<TeacherDashboard />}
+              />
 
-            <Route
-              path="timetable"
-              element={<Timetable />}
-            />
+              <Route
+                path="attendance"
+                element={<TeacherAttendance />}
+              />
 
-            <Route
-              path="assignments"
-              element={<Assignments />}
-            />
+              <Route
+                path="timetable"
+                element={<Timetable />}
+              />
 
-            <Route
-              path="results"
-              element={<TeacherResults />}
-            />
+              <Route
+                path="assignments"
+                element={<Assignments />}
+              />
 
-            <Route
-              path="settings"
-              element={<Settings />}
-            />
+              <Route
+                path="results"
+                element={<TeacherResults />}
+              />
 
+              <Route
+                path="settings"
+                element={<Settings />}
+              />
+
+            </Route>
           </Route>
+
+          {/* CATCH ALL WILDCARD ROUTE */}
+          <Route
+            path="*"
+            element={<Navigate to="/" replace />}
+          />
 
         </Routes>
 
